@@ -30,3 +30,9 @@
 ## 嵌入式
 
 * [树莓派](qian-ru-shi/shu-mei-pai.md)
+
+## 部署
+
+* [Nginx](bu-shu/nginx.md)
+* [Docker](bu-shu/docker.md)
+* [Kubernetes](bu-shu/kubernetes.md)
