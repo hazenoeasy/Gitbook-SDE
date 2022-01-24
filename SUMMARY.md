@@ -3,6 +3,7 @@
 ## 分布式
 
 * [FastDFS](README.md)
+* [Zookeeper](fen-bu-shi/zookeeper.md)
 
 ## Java
 
@@ -25,3 +26,7 @@
 * [Mysql](database/mysql.md)
 * [MongoDB](database/mongodb.md)
 * [Redis](database/redis.md)
+
+## 嵌入式
+
+* [树莓派](qian-ru-shi/shu-mei-pai.md)
