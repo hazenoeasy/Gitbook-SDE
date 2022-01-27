@@ -27,8 +27,13 @@
 * [MongoDB](database/mongodb.md)
 * [Redis](database/redis.md)
 
+## Frontend Framework
+
+* [Vue](frontend-framework/vue.md)
+
 ## 嵌入式
 
+* [Logs](qian-ru-shi/logs.md)
 * [树莓派](qian-ru-shi/shu-mei-pai.md)
 
 ## 部署
