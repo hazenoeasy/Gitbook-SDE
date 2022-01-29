@@ -6,10 +6,23 @@ xml 文件没有在resource文件夹下，所有不会被打包, 移动xml文件
 
 pom.xml
 
-&#x20;
+```
+<build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+    </build>
+```
 
-1.  在application.properties 下配置&#x20;
+&#x20;在application.properties 下配置&#x20;
 
-    ```
-    mybatis-plus.mapper-locations=classpath:plus/yuhaozhang/service/edu/mapper/xml/*.xml
-    ```
+```
+mybatis-plus.mapper-locations=classpath:plus/yuhaozhang/service/edu/mapper/xml/*.xml
+```
+
