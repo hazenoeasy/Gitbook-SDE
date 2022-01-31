@@ -9,7 +9,7 @@
 
 * [并发编程](java/bing-fa-bian-cheng/README.md)
   * [Note](java/bing-fa-bian-cheng/note/README.md)
-    * [Lecture 1](java/bing-fa-bian-cheng/note/lecture-1.md)
+    * [进程与线程](java/bing-fa-bian-cheng/note/jin-cheng-yu-xian-cheng.md)
   * [Debug](java/bing-fa-bian-cheng/debug.md)
 * [JVM](java/jvm.md)
 * [Maven](java/maven.md)
