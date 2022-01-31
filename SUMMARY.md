@@ -25,7 +25,8 @@
   * [Spring Security](javaweb/spring/spring-security.md)
   * [Spring MVC](javaweb/spring/spring-mvc.md)
 * [Netty](javaweb/netty.md)
-* [日志](javaweb/ri-zhi.md)
+* [日志](javaweb/ri-zhi/README.md)
+  * [LogBack](javaweb/ri-zhi/logback.md)
 
 ## Database
 
