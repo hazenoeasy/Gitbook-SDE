@@ -38,7 +38,7 @@
 
 ## Frontend Framework
 
-* [Vue](frontend-framework/vue/README.md)
+* [Vue](frontend-framework/vue.md)
   * [Logs](frontend-framework/vue/logs.md)
 
 ## 嵌入式

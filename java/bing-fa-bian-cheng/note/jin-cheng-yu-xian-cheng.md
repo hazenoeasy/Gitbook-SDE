@@ -67,7 +67,7 @@ Thread t = new Thread(){
 
     }
 }
-t.setName("t1")
+t.se.Name("t1")
 t.start() // 把代码交给任务调度器，由任务调度器负责执行
 
 //lamda
@@ -169,6 +169,34 @@ JAVA:
 | sleep         |                          |                                                                                             |
 | yield         | 提示线程调度器，让出当前线程对cpu的使用    | 为了测试和调试                                                                                     |
 
+* 不启动线程，直接调用run方法，方法会在main线程运行
+* sleep 会让线程的状态变为Timed Waiting
+* 其他线程可以使用interrupt 打断正在睡眠的线程，这时sleep方法会抛出异常
+* yield 会让当前线程从Running变为Runnable状态，然后调度执行其他线程
+* 正常运行的线程不能被打断，但是其他线程可以将它的isInterrupted设为true。由线程本身来检测该值，并决定是否真正的终止。
+
+#### 模式之两阶段终止模式 Two Phase Termination
+
+线程T1如何优雅终止线程T2
+
+
+
+_错误思路_
+
+* 使用线程对象的stop()方法停止线程
+  * stop方法会真正杀死线程，这是线程锁住了共享资源，那么当它被杀死后，再也没有机会释放锁，其他线程将永远无法获取锁。
+*   使用System.exit(int)方法停止线程
+
+    * 目的仅是停止一个线程，但这种做法会终止整个程序
+
+
+
+_正确思路_
+
+![Two Phase Termination](<../../../.gitbook/assets/Screen Shot 2022-02-02 at 2.23.37 AM.png>)
+
+__
+
 * LockSupport.Park 根据打断标记来判断是否停止，要是标记为true，就失效
 * 不建议的方法 stop,suspend,resume.
 
@@ -188,5 +216,95 @@ new Thread(()->{
 
 #### 线程的状态
 
-![](<../../../.gitbook/assets/Screen Shot 2022-02-02 at 4.24.00 PM.png>)
+![五种状态](<../../../.gitbook/assets/Screen Shot 2022-02-02 at 4.24.00 PM.png>)
 
+* 初始状态： new Thread
+* 可运行状态: Thread.start()
+* 运行状态: cpu时间片轮转到该线程
+* 阻塞状态: 阻塞线程，时间片不会轮转到它，直到操作系统唤醒。
+* 终止状态：结束线程
+
+![Java 六种状态](<../../../.gitbook/assets/Screen Shot 2022-02-02 at 4.29.39 PM.png>)
+
+* NEW: new Thread
+* RUNNABLE:  Thread.start()  包括了操作系统的可运行状态，运行状态，阻塞状态 （Java无法区分)
+* WAITING： 一个线程在等待另一个线程执行一个动作
+* BLOCKED: 锁资源拿不到。
+* TIMED\_WAITING: 一个线程在一个特定的等待时间内等待另一个线程完成一个动作
+* TERMINATED: 线程运行结束
+
+```
+// 章节练习
+package plus.yuhaozhang.l1;
+
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.concurrent.TimeUnit;
+
+/**
+ * @author Yuh Z
+ * @date 2/2/22
+ */
+@Slf4j(topic = "c.tea")
+public class Tea {
+    public static void main(String[] args) {
+
+        Runnable washCup = () -> {
+            log.debug("start washing cup");
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            log.debug("finish washing cup");
+        };
+        Runnable heatWater = () -> {
+            log.debug("start heating water");
+            try {
+                TimeUnit.SECONDS.sleep(15);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            log.debug("finish heating water");
+        };
+        Runnable getTea = () -> {
+            log.debug("start getting tea");
+            try {
+                TimeUnit.SECONDS.sleep(4);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            log.debug("finish getting tea");
+        };
+        Runnable finish = () -> {
+        };
+        Thread thread1 = new Thread(() -> {
+            washCup.run();
+            heatWater.run();
+        });
+        thread1.setName("1");
+        Thread thread2 = new Thread(() -> {
+            getTea.run();
+        });
+        thread2.setName("2");
+        Thread thread3 = new Thread(()->{
+            log.debug("start");
+            thread1.start();
+            thread2.start();
+            try {
+                thread1.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            try {
+                thread2.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            log.debug("drink tea");
+        });
+        thread3.setName("drink");
+        thread3.start();
+    }
+}
+```
