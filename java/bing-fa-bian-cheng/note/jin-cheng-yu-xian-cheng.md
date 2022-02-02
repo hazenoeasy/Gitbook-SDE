@@ -149,19 +149,25 @@ JAVA:
 
 3.4 常见方法
 
-| 方法名           | 功能                       | 注意                                                         |
-| ------------- | ------------------------ | ---------------------------------------------------------- |
-| start         | 启动新的线程，在新的线程运行run方法中的代码. | start只是让线程进入就绪，里面的代码不一定立即执行，因为cpu的时间片还没分配到它，每个thread只能调用一次 |
-| run           |                          |                                                            |
-| join          | 等待线程结束                   |                                                            |
-| join(long n)  | 等待线程结束后，最多等待n ms         |                                                            |
-| getd          | 获取线程长整型id                |                                                            |
-| getName       | 获取线程名                    |                                                            |
-| setName       |                          |                                                            |
-| getPriority   | 获取线程优先级                  | 1-10                                                       |
-| setPriority   |                          |                                                            |
-| getStatus     | 获取线程状态                   | NEW, RUNNABLE, BLOCKED, WAITING,TIMED\_WAITING, TERMINATED |
-| isInterrupted | 判断是否被打断                  | 不会被清除                                                      |
+| 方法名           | 功能                       | 注意                                                                                          |
+| ------------- | ------------------------ | ------------------------------------------------------------------------------------------- |
+| start         | 启动新的线程，在新的线程运行run方法中的代码. | start只是让线程进入就绪，里面的代码不一定立即执行，因为cpu的时间片还没分配到它，每个thread只能调用一次                                  |
+| run           |                          |                                                                                             |
+| join          | 等待线程结束                   |                                                                                             |
+| join(long n)  | 等待线程结束后，最多等待n ms         |                                                                                             |
+| getd          | 获取线程长整型id                |                                                                                             |
+| getName       | 获取线程名                    |                                                                                             |
+| setName       |                          |                                                                                             |
+| getPriority   | 获取线程优先级                  | 1-10                                                                                        |
+| setPriority   |                          |                                                                                             |
+| getStatus     | 获取线程状态                   | NEW, RUNNABLE, BLOCKED, WAITING,TIMED\_WAITING, TERMINATED                                  |
+| isInterrupted | 判断是否被打断                  | 不会被清除                                                                                       |
+| isAlive       | 线程是否存活                   |                                                                                             |
+| interrupt     | 打断线程                     | 如果被打断线程正在sleep,wait,join 会导致被打断的线程抛出异常，并清除打断标记，如果被打断的是正在运行的线程，则会设置打断标记，park的线程被打断，也会设置打断标记。 |
+| interrupted   | 判断是否被打断                  | 会清除打断标记                                                                                     |
+| currentThread | 获取当前正在执行的线程              |                                                                                             |
+| sleep         |                          |                                                                                             |
+| yield         | 提示线程调度器，让出当前线程对cpu的使用    | 为了测试和调试                                                                                     |
 
 
 
