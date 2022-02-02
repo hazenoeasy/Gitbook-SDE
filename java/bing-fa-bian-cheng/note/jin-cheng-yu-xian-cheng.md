@@ -169,7 +169,24 @@ JAVA:
 | sleep         |                          |                                                                                             |
 | yield         | 提示线程调度器，让出当前线程对cpu的使用    | 为了测试和调试                                                                                     |
 
+* LockSupport.Park 根据打断标记来判断是否停止，要是标记为true，就失效
+* 不建议的方法 stop,suspend,resume.
 
+#### 主线程和守护线程
 
+默认情况下，Java进程需要等待素有线程都运行结束，才会结束。有一种特殊的线程，叫做守护线程，只要其它非守护线程运行结束了，即使守护线程的代码没有执行完，也会强制结束。
 
+```
+new Thread(()->{
+ //  xxx
+},"daemon").setDaemon(true);
+
+```
+
+* 垃圾回收器，是一种守护线程。
+* Tomcat中的Accepter和Poller线程都是守护线程，所以Tomcat接收到shutdown指令后，不会等待他们处理完当前请求。
+
+#### 线程的状态
+
+![](<../../../.gitbook/assets/Screen Shot 2022-02-02 at 4.24.00 PM.png>)
 
