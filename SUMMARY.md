@@ -13,6 +13,8 @@
   * [Debug](java/bing-fa-bian-cheng/debug.md)
 * [JVM](java/jvm.md)
 * [Maven](java/maven.md)
+* [基础](java/ji-chu/README.md)
+  * [接口](java/ji-chu/jie-kou.md)
 
 ## JavaWeb
 
