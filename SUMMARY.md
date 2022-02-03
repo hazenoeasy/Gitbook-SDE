@@ -10,6 +10,7 @@
 * [并发编程](java/bing-fa-bian-cheng/README.md)
   * [Note](java/bing-fa-bian-cheng/note/README.md)
     * [进程与线程](java/bing-fa-bian-cheng/note/jin-cheng-yu-xian-cheng.md)
+    * [共享模型之管程](java/bing-fa-bian-cheng/note/gong-xiang-mo-xing-zhi-guan-cheng.md)
   * [Debug](java/bing-fa-bian-cheng/debug.md)
 * [JVM](java/jvm.md)
 * [Maven](java/maven.md)
