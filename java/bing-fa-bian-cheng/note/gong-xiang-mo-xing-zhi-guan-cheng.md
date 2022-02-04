@@ -120,7 +120,50 @@ Monitor 是系统锁，所以很重量级 ->防盗锁
 
 语法对使用者是透明的，还是synchronized
 
+* 创建锁记录 Lock Record 对象，每个线程的栈帧都会包含一个锁记录的结构，内部可以存储锁定对象的Mark Word
 
+![](<../../../.gitbook/assets/Screen Shot 2022-02-03 at 11.31.34 PM.png>)
+
+* 让锁记录的Object Reference 指向锁对象，并尝试用cas替换Object的Mark Word, 将Mark Word的值存入锁记录中
+
+![](<../../../.gitbook/assets/Screen Shot 2022-02-03 at 11.33.25 PM.png>)
+
+当后两位是01时，代表是无锁，可以交换
+
+![](<../../../.gitbook/assets/Screen Shot 2022-02-04 at 12.35.48 AM.png>)
+
+对象头状态为00 代表已锁
+
+加锁失败可能性：
+
+* 其他线程已经持有了该Object的轻量级锁，表明有竞争，进入锁膨胀过程
+* 如果时自己执行了synchroized锁重入，那么再添加一条Lock Record作为重入的计数，值设为null
+
+![](<../../../.gitbook/assets/Screen Shot 2022-02-04 at 12.39.52 AM.png>)
+
+在解锁的时候 null的record直接删除
+
+其他的，使用cas将Mark Word的值恢复给对象头
+
+* 成功，则解锁成功
+* 失败，则说明轻量级锁进行了锁膨胀，或者已经升级为了重量级锁，进入重量级锁解锁流程
+
+#### 锁膨胀
+
+![](<../../../.gitbook/assets/Screen Shot 2022-02-04 at 12.52.39 AM.png>)
+
+Thread1 加锁失败，进入锁膨胀流程
+
+* 为Object对象申请Monitor锁，让Object指向重量级锁地址
+* 自己进入Monitor的EntryList Blocked
+
+![](<../../../.gitbook/assets/Screen Shot 2022-02-04 at 12.56.12 AM.png>)
+
+Thread0 退出同步块解锁时，使用cas将Mark Word的值恢复给对象头，失败。这时会进入重量级解锁流程，即按照Monitor地址找到Monitor对象，设置Owner为null, 唤醒EntryList 中 Blocked线程
+
+
+
+#### 偏向锁
 
 ### 5. Wait/Notify
 

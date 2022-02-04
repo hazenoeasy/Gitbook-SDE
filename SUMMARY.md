@@ -79,7 +79,7 @@
 
 ## 算法
 
-* [图算法](suan-fa/tu-suan-fa.md)
+* [图算法](suan-fa/page-1.md)
 
 ## 操作系统
 
