@@ -110,6 +110,8 @@
 
 ## 暑期实习
 
+* [面经](shu-qi-shi-xi/mian-jing/README.md)
+  * [阿里](shu-qi-shi-xi/mian-jing/a-li.md)
 * [核心考点](shu-qi-shi-xi/he-xin-kao-dian/README.md)
   * [Page 2](shu-qi-shi-xi/he-xin-kao-dian/page-2.md)
 * [链接](shu-qi-shi-xi/lian-jie.md)
