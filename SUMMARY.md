@@ -79,7 +79,7 @@
 
 ## 算法
 
-* [Page 1](suan-fa/page-1.md)
+* [图算法](suan-fa/tu-suan-fa.md)
 
 ## 操作系统
 
@@ -110,4 +110,6 @@
 
 ## 暑期实习
 
+* [核心考点](shu-qi-shi-xi/he-xin-kao-dian/README.md)
+  * [Page 2](shu-qi-shi-xi/he-xin-kao-dian/page-2.md)
 * [链接](shu-qi-shi-xi/lian-jie.md)
