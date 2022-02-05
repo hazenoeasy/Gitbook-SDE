@@ -27,3 +27,7 @@ this.topologicalOrder.stream().mapToInt(Integer::valueOf).toArray();
 每次从入度为0的点入手
 {% endtab %}
 {% endtabs %}
+
+* 269 Alien Dictionary +
+
+也是拓扑排序，但是处理起来好麻烦
