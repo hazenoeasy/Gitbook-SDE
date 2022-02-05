@@ -175,11 +175,53 @@ Thread0 退出同步块解锁时，使用cas将Mark Word的值恢复给对象头
 * 偏向锁默认是延迟的，不会在程序启动时立即生效，如果想避免延迟，可以加入VM参数 -XX: biasedLockingStartupDelay = 0 来禁用延迟。
 * 如果没有开启偏向锁，那么对象创建后，markword值为001，它的hashcode，age都为0，第一次用到hashcode时才会赋值。
 * 使用hashcode会禁用偏向锁 因为一旦调用hashcode，就会为对象头写入hashcode，从而没有多余的空间留给biased 头
-* 当其他线程使用偏向锁时，会将偏向锁升级为轻量级锁。
+* 当其他线程使用偏向锁时，会将偏向锁升级为轻量级锁，当轻量级锁撤销后，会恢复为001 Noraml状态。
+* 使用 wait/ notify 也会撤销偏向锁。
 
+#### 批量重偏向
 
+如果对象虽然被多个线程访问，但没有竞争，这时偏向了线程T1的对象仍然有机会重新偏向T2，重偏向会重置对象的ThreadID
+
+当撤销偏向锁阈值超过20次后，jvm就会觉得自己是否偏向错了，于是会在给这些对象加锁时重新偏向至加锁线程。 修改对象头的ThreadID
+
+![](<../../../.gitbook/assets/Screen Shot 2022-02-05 at 12.38.32 AM.png>)
+
+#### 批量撤销
+
+当撤销偏向锁阈值超过40次后，jvm觉得，自己确实偏向错了，于是整个类所有的对象都会设为不可偏向的，新建的对象也是不可偏向的。
+
+![](<../../../.gitbook/assets/Screen Shot 2022-02-05 at 12.46.01 AM.png>)
+
+#### 锁消除
+
+JIT 会对代码进行优化，自动把不会共享的锁进行消除
 
 ### 5. Wait/Notify
+
+![](<../../../.gitbook/assets/Screen Shot 2022-02-05 at 1.22.20 AM.png>)
+
+* obj.wait 让object 进入 monitor的waitSet
+* obj.notify 在object上正在waitSet等待的线程中 **随机** 挑一个唤醒
+* obj.notify 唤醒所有waitSet的线程
+* 线程必须获得此对象的锁，成为onwer后才能调用这种方法 （在synchronized 代码临界区内，才能调用方法)
+
+#### sleep 和 wait 区别
+
+1. sleep 是Thread方法，而wait 是 Object的方法。
+2. sleep 不需要强制和synchronized配合使用，但是wait需要和synchronized一起用。
+3. sleep 在睡眠的同时，不会释放对象锁，但wait在等待的时候会释放对象锁。
+
+```
+synchronized(lock){
+    while(条件不成立){
+        lock.wait()
+    }
+}
+
+synchronized(lock){
+    lock.notifyAll()
+}
+```
 
 ### 6. 线程状态转换
 
