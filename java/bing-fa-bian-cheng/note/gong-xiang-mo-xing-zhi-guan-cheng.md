@@ -223,6 +223,44 @@ synchronized(lock){
 }
 ```
 
+#### 模式之保护性暂停
+
+Guarded Suspension 用一个线程等待另一个另一个线程的执行结果。
+
+* 有一个结果需要从一个线程传递到另一个线程，让他们关联同一个GuardedObject
+* 如果有结果不断从一个线程到另一个线程，那么可以使用消息队列
+* JDK中，join的实现，Future的实现，采用的就这种模式
+* 因为需要等待另一方的结果，因此归类到同步模式
+
+![](<../../../.gitbook/assets/Screen Shot 2022-02-05 at 10.34.50 AM.png>)
+
+```
+class GuardObject {
+    private Object response;
+    public Object get(){
+        synchronized(this){
+            while(response == null){
+                try{
+                    this.wait();
+                } catch(InterruptedException e){
+                    e.printStackTree();
+                }
+            }
+        }  
+    public void complete(Object response){
+        synchronized(this){
+            this.response = response;
+            this.notifyAll();
+        }  
+    } 
+}
+}
+```
+
+join 等待线程结束
+
+futures 像是信箱，一个大型的中转站，能在多个类之间使用Guarded Object对象，解耦结果等待者和结果生产者。
+
 ### 6. 线程状态转换
 
 ### 7. 活跃性
