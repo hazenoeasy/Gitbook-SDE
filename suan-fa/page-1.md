@@ -31,3 +31,10 @@ this.topologicalOrder.stream().mapToInt(Integer::valueOf).toArray();
 * 269 Alien Dictionary +
 
 也是拓扑排序，但是处理起来好麻烦
+
+* 886 Possible Bipartition +
+
+1. 通过BFS染色来做
+2. 通过DFS来做
+3. 特殊并查集
+
