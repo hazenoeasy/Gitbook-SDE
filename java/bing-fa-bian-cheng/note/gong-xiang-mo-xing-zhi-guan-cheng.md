@@ -261,7 +261,40 @@ join 等待线程结束
 
 futures 像是信箱，一个大型的中转站，能在多个类之间使用Guarded Object对象，解耦结果等待者和结果生产者。
 
+#### 异步之生产者/消费者模式
+
+* 不需要产生结果和小费结果的线程一一对应。
+* 消费队列可以用来平衡生产和消费的线程资源。
+* 生产者仅负责产生结果数据，不关心消息如何处理。消费者专心处理结果数据。
+* 消息队列是有容量限制的，满了就不会在加入新的，空时不会再消耗数据。
+* JDK中各种阻塞队列，采用的就是这种模式
+
+![](<../../../.gitbook/assets/Screen Shot 2022-02-07 at 10.46.27 PM.png>)
+
+#### Park & Unpark
+
+LockSupport 的方法
+
+LockSupport.park(); 暂停线程
+
+LockSupport.unpark(Thread t1); 恢复线程
+
+不必配合Object Monitor 一起使用
+
+可以提前unpart(Thread t1).
+
+* 每个线程都有自己的Parker对象，由三个部分组成 counter, cond, mutex
+* counter  0 / 1&#x20;
+* 调用park， 查看counter，要是为0 就停止；要是为1 就继续，并设置counter为0。
+* counter最多为1 最少为0
+
+![](<../../../.gitbook/assets/Screen Shot 2022-02-08 at 12.15.58 AM.png>)
+
 ### 6. 线程状态转换
+
+![](<../../../.gitbook/assets/Screen Shot 2022-02-08 at 12.21.46 AM.png>)
+
+
 
 ### 7. 活跃性
 
