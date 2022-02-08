@@ -294,8 +294,80 @@ LockSupport.unpark(Thread t1); 恢复线程
 
 ![](<../../../.gitbook/assets/Screen Shot 2022-02-08 at 12.21.46 AM.png>)
 
+1. New -> Runnable  当调用t.start()方法时, 由new -> Runnable
+2. Runnable -> Waiting  t调用synchronized(obj) 获得锁之后
+   1. 调用obj.wait() 方法，t线程从Runnable -> Waiting
+   2. 调用obj.notify()， obj.notifyAll(), t.interrupt()时
+      1. 竞争锁成功，t从waiting -> Runnable
+      2. 竞争锁失败， t 从 waiting -> Blocked
+3. &#x20; Runnable -> Waiting 当前线程调用t.join()
+   1. 当前线程在t对象的Monitor监视器上等待
+   2. t线程运行结束，或者调用了当前线程的Interrupt() 时，当前线程从WAITING -> RUNNABLE
+4. &#x20;Runnale -> Waiting 当前线程调用LockSupport.park()
+   1. 调用LockSupport.unpark(t1) 或者调用interrupt时，会Waiting->Runnable
+5.  Runnable -> Timed\_Waiting t线程用synchronized获取了对象锁后
+
+    1. &#x20;调用obj.wait(long n ) 方法，t线程从Runnable -> Timed\_Waiting
+    2. t线程等待时间超过了n秒，或者调用了notify,notifyAll,t.interrupt()时
+       1. 竞争成功， -> Runnable
+       2. 竞争失败 -> Blocked
 
 
-### 7. 活跃性
+6. t.join(long n)
+7. Thread.sleep(n)
+8. LockSupport.parkNanos(long nanos)
+9. Runnable <-> Blocked
+   1. t 线程用 synchronized(obj) 获取了对象锁时，如果竞争失败，从Runnable->Blocked
+   2. 持有obj锁线程的代码同步块执行完毕，会唤醒该对象上所有的Blocked的线程重新竞争，如果t线程竞争成功，从Blocked -> Runnable, 其他失败的线程仍然Blocked
+10. 线程结束
 
-### 8. Lock
+#### 多把锁
+
+* 多把不相关的锁 要是一个线程请求多个锁，可能会造成死锁。
+
+### 7. 活跃性/ 锁
+
+#### 死锁
+
+t1 获得了A 想获得B
+
+t2 获得了B 想获得A
+
+#### 定位死锁
+
+可以用jconsole 工具
+
+也可以用jsp 查看进程号，然后查看进程
+
+#### 活锁
+
+两个线程互相改变对方的结束条件，最后谁也无法结束。
+
+#### 线程饥饿
+
+线程优先级太低，始终得不到CPU调度，也不能够结束。读写锁时会涉及饥饿问题。
+
+#### 哲学家问题
+
+![](<../../../.gitbook/assets/Screen Shot 2022-02-08 at 5.08.34 PM.png>)
+
+#### Reentrant Lock  可重入锁
+
+相对与synchronized，它具备如下特点
+
+* 可中断 synchronized 不可中断
+* 可以设置超时时间 synchronized 会一直等待
+* 可以设置为公平锁  防止线程饥饿 fifo 而不是随机强
+* 设置多个条件变量  waitset 可以有多个
+
+与synchronized一样 可以支持可重入 同一个线程 自己反复加锁
+
+```
+reentrantLock.lock()
+try{
+
+} finally {
+    retrantLock.unlock();
+}
+
+```
