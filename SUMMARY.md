@@ -68,7 +68,21 @@
 
 ## Database
 
-* [Mysql](database/mysql.md)
+* [Mysql](database/mysql/README.md)
+  * [High Performance SQL](database/mysql/high-performance-sql/README.md)
+    * [1 MySQL Architecture](database/mysql/high-performance-sql/1-mysql-architecture.md)
+    * [2 Monitoring in a Reliability Engineering World](database/mysql/high-performance-sql/2-monitoring-in-a-reliability-engineering-world.md)
+    * [3 Performance Schema](database/mysql/high-performance-sql/3-performance-schema.md)
+    * [4 Optimizing Server Settings](database/mysql/high-performance-sql/4-optimizing-server-settings.md)
+    * [5 Optimizing Server Settings](database/mysql/high-performance-sql/5-optimizing-server-settings.md)
+    * [6 Schema Design and Management](database/mysql/high-performance-sql/6-schema-design-and-management.md)
+    * [7 Indexing for High Performance](database/mysql/high-performance-sql/7-indexing-for-high-performance.md)
+    * [8 Query Performance Optimization](database/mysql/high-performance-sql/8-query-performance-optimization.md)
+    * [9 Replication](database/mysql/high-performance-sql/9-replication.md)
+    * [10 Backup and Recovery](database/mysql/high-performance-sql/10-backup-and-recovery.md)
+    * [11 Scaling MySQL](database/mysql/high-performance-sql/11-scaling-mysql.md)
+    * [12 MySQL in the Cloud](database/mysql/high-performance-sql/12-mysql-in-the-cloud.md)
+    * [13. Compliance with MySQL](database/mysql/high-performance-sql/13.-compliance-with-mysql.md)
 * [MongoDB](database/mongodb.md)
 * [Redis](database/redis.md)
 
