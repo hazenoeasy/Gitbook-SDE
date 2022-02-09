@@ -371,3 +371,49 @@ try{
 }
 
 ```
+
+#### 锁超时
+
+lock.tryLock(long n); 判断能否获得到锁。(可以解决哲学家的死锁问题)
+
+公平锁一般没有必要，会降低并发度。
+
+#### 条件变量
+
+ReentantLock 多个条件变量 多个 waitSet，所以唤醒也可以按照不同条件唤醒
+
+* await 前需要获得锁
+* await 执行后，会释放锁，进入ConditionObject 等待
+* await 的线程被唤醒后，重新竞争lock锁
+* 竞争lock锁成功过后，从await后继续执行
+
+```
+lock = new ReentrantLock()
+Condition condition1 = lock.newCondition()
+// 先获得锁
+lock.lock()
+// 进入休息室 conditionObject
+condition1.await();
+
+condition1.signal(); // 唤醒一个
+condition1.signalAll(); // 唤醒所有
+```
+
+#### 同步模式之顺序控制
+
+还是通过公共变量来标记状态
+
+固定运行顺序
+
+比如 必须先2 后1
+
+* park&#x20;
+* await
+* wait
+
+交替输出
+
+&#x20;abc abc abc&#x20;
+
+
+
