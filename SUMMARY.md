@@ -8,6 +8,8 @@
     * [共享模型之管程](java/bing-fa-bian-cheng/note/gong-xiang-mo-xing-zhi-guan-cheng.md)
     * [共享模型之内存](java/bing-fa-bian-cheng/note/gong-xiang-mo-xing-zhi-nei-cun.md)
     * [共享模型之无锁](java/bing-fa-bian-cheng/note/gong-xiang-mo-xing-zhi-wu-suo.md)
+    * [共享模型之不可变](java/bing-fa-bian-cheng/note/gong-xiang-mo-xing-zhi-bu-ke-bian.md)
+    * [并发工具学习](java/bing-fa-bian-cheng/note/bing-fa-gong-ju-xue-xi.md)
   * [Debug](java/bing-fa-bian-cheng/debug.md)
 * [JVM](java/jvm.md)
 * [基础](java/ji-chu/README.md)
