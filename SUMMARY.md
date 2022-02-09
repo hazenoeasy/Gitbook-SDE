@@ -6,6 +6,8 @@
   * [Note](java/bing-fa-bian-cheng/note/README.md)
     * [进程与线程](java/bing-fa-bian-cheng/note/jin-cheng-yu-xian-cheng.md)
     * [共享模型之管程](java/bing-fa-bian-cheng/note/gong-xiang-mo-xing-zhi-guan-cheng.md)
+    * [共享模型之内存](java/bing-fa-bian-cheng/note/gong-xiang-mo-xing-zhi-nei-cun.md)
+    * [共享模型之无锁](java/bing-fa-bian-cheng/note/gong-xiang-mo-xing-zhi-wu-suo.md)
   * [Debug](java/bing-fa-bian-cheng/debug.md)
 * [JVM](java/jvm.md)
 * [基础](java/ji-chu/README.md)
