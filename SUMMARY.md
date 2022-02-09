@@ -38,7 +38,7 @@
 ## JavaWeb
 
 * [Spring](javaweb/spring/README.md)
-  * [Spring](javaweb/spring/spring/README.md)
+  * [Spring](javaweb/spring/spring.md)
     * [四：事务分析](javaweb/spring/spring/si-shi-wu-fen-xi.md)
     * [三：spring创建过程](javaweb/spring/spring/san-spring-chuang-jian-guo-cheng.md)
     * [spring拓展原理](javaweb/spring/spring/spring-tuo-zhan-yuan-li.md)
@@ -48,7 +48,8 @@
   * [Spring Boot](javaweb/spring/spring-boot/README.md)
     * [Debug](javaweb/spring/spring-boot/debug.md)
   * [Spring Cloud](javaweb/spring/spring-cloud.md)
-  * [Spring Security](javaweb/spring/spring-security.md)
+  * [Spring Security](javaweb/spring/spring-security/README.md)
+    * [权限管理](javaweb/spring/spring-security/quan-xian-guan-li.md)
 * [应用服务器](javaweb/ying-yong-fu-wu-qi/README.md)
   * [Tomcat](javaweb/ying-yong-fu-wu-qi/tomcat.md)
   * [Jetty](javaweb/ying-yong-fu-wu-qi/jetty.md)
