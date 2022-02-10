@@ -70,7 +70,7 @@ interface Account {
 
 #### 解决思路-无锁
 
-上面的代码中可以使用synchronized加锁操作来实现线程安全，但是synchronized加锁操作太耗费资源，这里我们使用无锁来解决此问题： Test5.java
+上面的代码中可以使用synchronized加锁操作来实现线程安全，但是synchronized加锁操作太耗费资源，这里我们使用无锁来解决此问题：  依托于AtomicInteger.
 
 ```java
 class AccountSafe implements Account{
@@ -104,7 +104,7 @@ class AccountSafe implements Account{
 
 ### 6.2 CAS 与 volatile
 
-#### cas
+#### cas compare and swap  cpu层面 原子操作
 
 前面看到的AtomicInteger的解决方法，内部并没有用锁来保护共享变量的线程安全。那么它是如何实现的呢？
 
@@ -133,6 +133,10 @@ class AccountSafe implements Account{
 ```
 
 其中的关键是 compareAndSet，它的简称就是 CAS （也有 Compare And Swap 的说法），它必须是原子操作。
+
+在IA64，x86 指令集中有 _**cmpxchg**_ 指令完成 CAS 功能，在 sparc-TSO 也有 _**casa**_ 指令实现，而在 ARM 和 PowerPC 架构下，则需要使用一对 _**ldrex/strex**_ 指令来完成 LL/SC 的功能。
+
+通过**缓存锁定**来保证原子性。所谓缓存锁定是指内存区域如果被缓存在处理器的缓存行中，并且在 _Lock_ 操作期间被锁定，那么当他执行锁操作写回到内存时，处理器不在总线上声言 _LOCK#_ 信号，而是修改内部的内存地址，并允许他的缓存一致性机制来保证操作的原子性，因为缓存一致性机制会阻止同时修改两个以上处理器缓存的内存区域数据（这里和 volatile 的可见性原理相同），当其他处理器回写已被锁定的缓存行的数据时，会使缓存行无效。
 
 ![1594776811158](https://gitee.com/gu\_chun\_bo/picture/raw/master/image/20200715093333-972226.png)
 
