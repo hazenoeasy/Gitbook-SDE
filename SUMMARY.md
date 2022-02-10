@@ -113,6 +113,8 @@
 
 ## 算法
 
+* [Hash](suan-fa/hash.md)
+* [Sort](suan-fa/sort.md)
 * [图算法](suan-fa/page-1.md)
 
 ## 操作系统
