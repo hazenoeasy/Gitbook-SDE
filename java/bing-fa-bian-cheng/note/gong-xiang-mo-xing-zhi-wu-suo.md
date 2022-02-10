@@ -216,7 +216,7 @@ java.util.concurrent.atomic并发包提供了一些并发工具类，这里把�
     
 ```
 
-### 6.4 原子引用
+### 6.4 原子引用  对象地址的原子性
 
 为什么需要原子引用类型？保证引用类型的共享变量是线程安全的（确保这个原子引用没有引用过别人）。
 
@@ -309,7 +309,7 @@ ABA 问题：Test8.java 如下程序所示，虽然再other方法中存在两个
     }
 ```
 
-主线程仅能判断出共享变量的值与最初值 A 是否相同，不能感知到这种从 A 改为 B 又改回 A 的情况，如果主线程希望：只要有其它线程【动过了】共享变量，那么自己的 cas 就算失败，这时，仅比较值是不够的，需要再加一个版本号。使用AtomicStampedReference来解决。
+主线程仅能判断出共享变量的值与最初值 A 是否相同，不能感知到这种从 A 改为 B 又改回 A 的情况，如果主线程希望：只要有其它线程【动过了】共享变量，那么自己的 cas 就算失败，这时，仅比较值是不够的，需要再加一个版本号。使用AtomicStampedReference来解决。·
 
 #### AtomicStampedReference
 
@@ -408,11 +408,15 @@ void accept(T t);
   }
 ```
 
-### 6.6 字段更新器
+### 6.6 字段更新器 对属性进行更新&#x20;
 
 AtomicReferenceFieldUpdater // 域 字段 ，AtomicIntegerFieldUpdater，AtomicLongFieldUpdater
 
-注意：利用字段更新器，可以针对对象的某个域（Field）进行原子操作，只能配合 volatile 修饰的字段使用，否则会出现异常 Test12.java
+注意：利用字段更新器，可以针对对象的某个域（Field）进行原子操作，只能配合 volatile 修饰的字段使用，否则会出现异常，因为cas要配合volatile使用,因为cas要确定比较最新值。
+
+Atomic类是内部给属性加了volatile
+
+而updater是对非Atomic类的属性，进行无锁更新。所以需要使用者手动给属性添加volatile
 
 ```
 Exception in thread "main" java.lang.IllegalArgumentException: Must be volatile type
@@ -420,7 +424,7 @@ Exception in thread "main" java.lang.IllegalArgumentException: Must be volatile 
 
 ### 6.7 原子累加器
 
-#### 累加器性能比较
+#### 累加器性能比较  原子累加器比Atomic效率高
 
 LongAdder累加器的使用
 
