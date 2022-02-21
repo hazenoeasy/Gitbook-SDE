@@ -134,6 +134,12 @@
 
 * [树莓派](qian-ru-shi/shu-mei-pai.md)
 
+## Python Web
+
+* [Django](python-web/django/README.md)
+  * [Tutorial](python-web/django/tutorial.md)
+* [Page 1](python-web/page-1.md)
+
 ## 分布式
 
 * [FastDFS](<README (1).md>)
@@ -143,6 +149,8 @@
 * [Nginx](bu-shu/nginx.md)
 * [Docker](bu-shu/docker.md)
 * [Kubernetes](bu-shu/kubernetes.md)
+* [Heroku](bu-shu/heroku/README.md)
+  * [Django](bu-shu/heroku/django.md)
 
 ## 暑期实习
 
