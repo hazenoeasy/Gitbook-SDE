@@ -546,19 +546,19 @@ static final class Cell {
 
 下面讨论@sun.misc.Contended注解的重要意义
 
-得从缓存说起，缓存与内存的速度比较
 
-![1594821128208](https://gitee.com/gu\_chun\_bo/picture/raw/master/image/20200715215209-330421.png)
 
-因为 CPU 与 内存的速度差异很大，需要靠预读数据至缓存来提升效率。缓存离cpu越近速度越快。 而缓存以缓存行为单位，每个缓存行对应着一块内存，一般是 64 byte（8 个 long），缓存的加入会造成数据副本的产生，即同一份数据会缓存在不同核心的缓存行中，CPU 要保证数据的一致性，如果某个 CPU 核心更改了数据，其它 CPU 核心对应的整个缓存行必须失效。
+因为 CPU 与 内存的速度差异很大，需要靠预读数据至缓存来提升效率。&#x20;
 
-![1594821188387](https://gitee.com/gu\_chun\_bo/picture/raw/master/image/20200716135941-626948.png)
+缓存以缓存行为单位，每个缓存行对应着一块内存，一般是 64 byte（8 个 long），缓存的加入会造成数据副本的产生，即同一份数据会缓存在不同核心的缓存行中，CPU 要保证数据的一致性，如果某个 CPU 核心更改了数据，其它 CPU 核心对应的整个缓存行必须失效。
+
+![](<../../../.gitbook/assets/Screen Shot 2022-02-23 at 2.06.43 AM.png>)
 
 因为 Cell 是数组形式，在内存中是连续存储的，一个 Cell 为 24 字节（16 字节的对象头和 8 字节的 value），因 此缓存行可以存下 2 个的 Cell 对象。这样问题来了： Core-0 要修改 Cell\[0]，Core-1 要修改 Cell\[1]
 
 无论谁修改成功，都会导致对方 Core 的缓存行失效，比如 Core-0 中 Cell\[0]=6000, Cell\[1]=8000 要累加 Cell\[0]=6001, Cell\[1]=8000 ，这时会让 Core-1 的缓存行失效，@sun.misc.Contended 用来解决这个问题，它的原理是在使用此注解的对象或字段的前后各增加 128 字节大小的padding，从而让 CPU 将对象预读至缓存时占用不同的缓存行，这样，不会造成对方缓存行的失效
 
-![1594821225708](https://gitee.com/gu\_chun\_bo/picture/raw/master/image/20200716135939-234417.png)
+![1594821225708](<../../../.gitbook/assets/Screen Shot 2022-02-23 at 2.10.15 AM.png>)
 
 再来看看LongAdder类的累加increment()方法中又主要调用下面的方法
 
@@ -592,6 +592,8 @@ static final class Cell {
 **add 方法分析**
 
 add 流程图
+
+![](<../../../.gitbook/assets/Screen Shot 2022-02-23 at 2.15.12 AM.png>)
 
 ```java
   final void longAccumulate(long x, LongBinaryOperator fn,
