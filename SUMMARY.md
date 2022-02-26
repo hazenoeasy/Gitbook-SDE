@@ -19,7 +19,6 @@
     * [wait()和notify()方法](java/bing-fa-bian-cheng/note/wait-he-notify-fang-fa.md)
   * [Debug](java/bing-fa-bian-cheng/debug.md)
 * [Note](java/note.md)
-* [分布式](java/fen-bu-shi.md)
 * [JVM](java/jvm.md)
 * [基础](java/ji-chu/README.md)
   * [面向对象](java/ji-chu/mian-xiang-dui-xiang.md)
@@ -149,6 +148,8 @@
 
 ## 部署
 
+* [git](bu-shu/git/README.md)
+  * [wiki](bu-shu/git/wiki.md)
 * [Nginx](bu-shu/nginx.md)
 * [Docker](bu-shu/docker.md)
 * [Kubernetes](bu-shu/kubernetes.md)
