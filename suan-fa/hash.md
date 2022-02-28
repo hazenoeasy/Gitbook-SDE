@@ -4,7 +4,7 @@
 
 实现满足LRU 最近最少使用&#x20;
 
-![](../.gitbook/assets/image.png)
+![](<../.gitbook/assets/image (2).png>)
 
 
 
