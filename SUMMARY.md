@@ -116,6 +116,7 @@
 
 ## 算法
 
+* [Array](suan-fa/array.md)
 * [Hash](suan-fa/hash.md)
 * [Sort](suan-fa/sort.md)
 * [图算法](suan-fa/page-1.md)
