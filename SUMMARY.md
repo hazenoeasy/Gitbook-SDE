@@ -135,7 +135,19 @@
   * [Logs](frontend-framework/vue/logs.md)
 * [Angular](frontend-framework/angular/README.md)
   * [文档阅读](frontend-framework/angular/wen-dang-yue-du/README.md)
-    * [Page 3](frontend-framework/angular/wen-dang-yue-du/page-3.md)
+    * [组件](frontend-framework/angular/wen-dang-yue-du/zu-jian/README.md)
+      * [生命周期](frontend-framework/angular/wen-dang-yue-du/zu-jian/sheng-ming-zhou-qi.md)
+      * [Untitled](frontend-framework/angular/wen-dang-yue-du/zu-jian/untitled.md)
+    * [模版](frontend-framework/angular/wen-dang-yue-du/mo-ban.md)
+    * [指令](frontend-framework/angular/wen-dang-yue-du/zhi-ling.md)
+    * [依赖注入](frontend-framework/angular/wen-dang-yue-du/yi-lai-zhu-ru.md)
+    * [路由](frontend-framework/angular/wen-dang-yue-du/lu-you.md)
+    * [表单](frontend-framework/angular/wen-dang-yue-du/biao-dan.md)
+    * [HTTP 客户端](frontend-framework/angular/wen-dang-yue-du/http-ke-hu-duan.md)
+    * [测试](frontend-framework/angular/wen-dang-yue-du/ce-shi.md)
+    * [国际化](frontend-framework/angular/wen-dang-yue-du/guo-ji-hua.md)
+    * [Service Worker](frontend-framework/angular/wen-dang-yue-du/service-worker.md)
+  * [工具库](frontend-framework/angular/gong-ju-ku.md)
 
 ## 嵌入式
 
